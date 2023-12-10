@@ -29,5 +29,14 @@ public struct StringifyMacro: ExpressionMacro {
 struct LSRequestPlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
         StringifyMacro.self,
+        QueryableMacro.self,
+        HTTPBodyMacro.self,
+        MethodMacro.self,
+        HeaderFieldMacro.self,
+        URLMacro.self,
+        URLQueryMacro.self,
+        BodyEncodableMacro.self,
+        PayloadMacro.self,
+        ExecutorMacro.self,
     ]
 }

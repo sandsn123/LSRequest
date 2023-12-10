@@ -1,8 +1,49 @@
 import LSRequest
+import Foundation
+/*
+ - path
+ - query
+ - method
+ - body
+ - paylad
 
-let a = 17
-let b = 25
+*/
 
-let (result, code) = #stringify(a + b)
+@Queryable
+struct LoginQuery {
+    @QueryIgnore
+    let user: String
+    let phone: String
+}
 
-print("The value \(result) was produced by the code \"\(code)\"")
+@BodyEncodable
+struct LoginBody: Encodable {
+    let user: String
+    let phone: String
+}
+
+
+public struct DataModel: Decodable {
+    public struct Lib: Decodable {
+        let count: Int
+        let list: [String]
+    }
+    
+    let code: Int
+    let msg: String
+    let data: Lib
+}
+
+
+extension URLSession: Executor {
+    public func execute(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
+        try await data(for: request) as! (Data, HTTPURLResponse)
+    }
+}
+
+
+@GET("textBase/findAllTittle")
+@Payload<DataModel>
+struct LoginService {
+    
+}
